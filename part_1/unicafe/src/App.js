@@ -4,6 +4,10 @@ const Button = ({handleClick, text}) => <button onClick={handleClick}>{text}</bu
 
 const Title = ({title}) => <div><h1>{title}</h1></div>
 
+/**
+ * Wrapped statistics components into a wrapper
+ * so that they can be used individually.
+ */
 const StatsWrapper = ({clicks}) => {
   if(clicks.all === 0) return (<div>No feedback given.</div>)
   return (
@@ -14,8 +18,8 @@ const StatsWrapper = ({clicks}) => {
           <Statistics text='neutral' value={clicks.neutral} />
           <Statistics text='bad' value={clicks.bad} />
           <Statistics text='all' value={clicks.all} />
-          <Statistics text='average' value={(clicks.all) / 3} />
-          <Statistics text='positive' value={(clicks.good) / (clicks.all)} />
+          <Statistics text='average' value={(clicks.good - clicks.bad) / clicks.all} />
+          <Statistics text='positive' value={(clicks.good) / (clicks.all) * 100 + " %"} />
         </tbody>
       </table>
     </div>
